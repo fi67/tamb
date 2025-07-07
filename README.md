@@ -1,2 +1,2 @@
 # tamb
-Simple JS game
+Simple JS game starter point and slides
