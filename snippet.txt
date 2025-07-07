@@ -1,0 +1,170 @@
+snippet 1
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tap the tambourine!</title>
+</head>
+<body>
+  <p id="score">Score: 0</p>
+  <p id="timer">Time Left: 10s</p>
+  <img src="tamb.svg" alt="tamborine picture" width="150" height="150" id="instrument">
+  <p id="message"></p>
+</body>
+</html>
+
+__________________________________________________
+
+snippet 2a
+
+body {
+      font-family: sans-serif;
+}
+#instrument {
+      position: absolute;
+      cursor: pointer;
+}
+
+_________________________________________________________
+snippet 2b
+
+<link rel="stylesheet" href="style.css">
+
+__________________________________________________________
+snippet 3a
+
+alert("hello world!");
+
+_________________________________________________________
+snippet 3b
+
+<script src="code.js" defer></script>
+
+____________________________________________________________
+snippet 4
+
+//link to html items
+
+// initialise 
+// set up score, max score, time left, game over state
+// set up timers
+// set up sound
+// set up listener for click on instrument
+// make first move
+
+
+//functions (code bits)
+// move instrument
+// update timer
+// click instrument
+// end game
+
+_________________________________________________________
+snippet 5a
+
+const instrument = document.getElementById('instrument');
+const scoreDisplay = document.getElementById('score');
+const timerDisplay = document.getElementById('timer');
+const message = document.getElementById('message');
+
+_________________________________________________________
+snippet 5b
+
+let score = 0;
+const maxScore = 5;
+let timeLeft = 10;
+let gameOver = false;
+
+__________________________________________________
+snippet 5c
+
+const instrumentTimer = setInterval(moveInstrument, 1000);
+const timerInterval = setInterval(updateTimer, 1000);
+
+____________________________________________________________
+snippet 5d
+
+const clickSound = new Audio('tamb2.mp3');
+
+_________________________________________________________
+snippet 5e
+
+instrument.addEventListener('click',instrumentClick);
+
+_________________________________________________________
+snippet 5f
+
+moveInstrument();
+
+_________________________________________________________
+snippet 6
+
+//functions (code bits)
+// move instrument
+function moveInstrument() {
+console.log('move');
+}
+// update timer
+function updateTimer() {
+console.log('update');
+}
+// click instrument
+function instrumentClick() {
+console.log('click');
+}
+// end game
+function endGame() {
+console.log('end');
+}
+
+__________________________________________________
+
+snippet 7
+
+//functions (code bits)
+// move instrument
+function moveInstrument() {
+    if (gameOver) return;
+    const maxX = window.innerWidth - 150;
+    const maxY = window.innerHeight - 150;
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+    instrument.style.left = x + 'px';
+    instrument.style.top = y + 'px';
+}
+// update timer
+function updateTimer() {
+    timeLeft--;
+    timerDisplay.innerHTML = 'Time Left: ' + timeLeft + 's';
+    if (timeLeft <= 0) {
+        endGame(score >= maxScore ? "You win!" : "Time's up!");
+    }
+}
+// click instrument
+function instrumentClick() {
+    if (gameOver) return;
+    clickSound.currentTime = 0; // rewind if playing
+    clickSound.play();
+    score++;
+    scoreDisplay.innerHTML = 'Score: ' + score;
+    if (score >= maxScore) {
+        endGame("You win!");
+    }
+}
+// end game
+function endGame(msg) {
+    gameOver = true;
+    message.innerHTML = msg;
+    clearInterval(instrumentTimer);
+    clearInterval(timerInterval);
+}
+
+
+
+
+
+
+
+
+
