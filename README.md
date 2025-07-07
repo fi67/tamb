@@ -1,0 +1,2 @@
+# tamb
+Simple JS game
